@@ -12,12 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -25,14 +24,13 @@ import java.net.URISyntaxException;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT) //TODO @LocalServerPort if RANDOM_PORT
 @AutoConfigureMockMvc
-@ActiveProfiles("integration-test")
 @TestPropertySource("classpath:application.properties")
 public class AccountControllerHeavyST {
     @Value("${server.port}") private int port;
     @Autowired private Logger logger;
-    @Autowired private RestTemplate restTemplate;
+    @Autowired private TestRestTemplate testRestTemplate; //TODO Testing REST _client_ @RestClientTest(MyService.class) and @Autowired TestRestTemplate testRestTemplate
     @Autowired private ObjectMapper objectMapper;
     private RequestEntity request;
 
@@ -49,8 +47,8 @@ public class AccountControllerHeavyST {
 
     @Test
     public void shouldGetAllAccountWhenUsePrePopulatedFakeDb() {
-        //TODO Can be simple but need for headers: restTemplate.getForObject(baseUrl + "/accounts", Account[].class);
-        ResponseEntity<Account[]> response = restTemplate.exchange(request, Account[].class);
+        //TODO Can be simple but need for headers: testRestTemplate.getForObject(baseUrl + "/accounts", Account[].class);
+        ResponseEntity<Account[]> response = testRestTemplate.exchange(request, Account[].class);
 
         logger.debug(">>>>> ");
         for (Account account : response.getBody()) {

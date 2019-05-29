@@ -62,6 +62,7 @@ public class AccountController {
             accounts.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (EmptyResultDataAccessException e) {
+            //TODO https://www.baeldung.com/exception-handling-for-rest-with-spring
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,
                     "Account not found id: " + id,

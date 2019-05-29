@@ -61,6 +61,7 @@ git clone --depth 1 -b <YYYY-MM-project> https://github.com/eugene-krivosheyev/s
 - Тестовые дублеры для Spring-компонентов
 - Тестовые конфигурации
 - Тестовые дублеры для внешних веб- и REST-сервисов
+- [Чем Spring Boot помогает в тестировании](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-testing)
 
 ### Live coding demo
 - Разработка полностью автономного модульного теста

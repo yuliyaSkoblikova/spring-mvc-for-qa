@@ -6,6 +6,7 @@ import com.fasterxml.classmate.TypeResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -18,6 +19,7 @@ import java.util.Collections;
 
 @Configuration
 @EnableSwagger2
+@Profile("!integrationTest")
 public class SwaggerConfig {
     @Autowired private TypeResolver typeResolver;
 

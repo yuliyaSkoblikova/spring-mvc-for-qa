@@ -23,13 +23,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
+//TODO @SpringBootTest VS @WebMvcTest(MyController.class): focus only on the web layer and not start a complete ApplicationContext
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK) //TODO Semantics of MOCK: No servlet container started
 @AutoConfigureMockMvc
-@ActiveProfiles("integration-test")
 public class AccountControllerIT {
-    @Autowired private MockMvc mockMvc;
+    @Autowired private MockMvc mockMvc; //TODO Exception handling issue: https://github.com/spring-projects/spring-boot/issues/7321#issuecomment-261343803
     @Autowired private Logger logger;
     @MockBean private AccountRepository accounts; //TODO MockBean semantics
+    //TODO If not @SpringBootTest use @TestExecutionListeners(MockitoTestExecutionListener.class)
+    //TODO @SpyBean semantics
 
     @Test
     public void shouldGetNoAccountsWhenAccountsRepoIsEmpty() throws Exception {
