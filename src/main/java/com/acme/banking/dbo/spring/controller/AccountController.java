@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.Collection;
@@ -29,6 +31,7 @@ public class AccountController {
     @Resource private AccountRepository accounts;
     @Autowired private ObjectMapper objectMapper;
     @Autowired private Logger logger;
+    @Autowired ApplicationContext context;
 
     @GetMapping(path = "/accounts", headers = "X-API-VERSION=1")
     @ApiOperation(value = "View a list of all accounts", response = Collection.class)
@@ -72,7 +75,8 @@ public class AccountController {
     }
 
     @PostMapping(path = "/accounts", headers = "X-API-VERSION=1")
-    public Account createAccount(@RequestBody @Valid Account account) {
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public Account createAccount(@RequestBody @Valid Account account, HttpServletRequest rq) {
         return accounts.save(account);
     }
 }

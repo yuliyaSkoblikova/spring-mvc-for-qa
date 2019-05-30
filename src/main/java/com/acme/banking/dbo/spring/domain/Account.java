@@ -22,9 +22,10 @@ public abstract class Account {
     @Email @Size(max = 50) private String email;
     private double amount;
 
-    /** No-arg constructor needed by JPA */
+    /** No-arg constructor needed by JPA and Jackson */
     public Account() { }
 
+    //TODO Or Jackson can use this constructor: https://stackoverflow.com/questions/39123030/jackson-json-deserialization-with-multiple-parameters-constructor
     public Account(double amount, String email) {
         this.amount = amount;
         this.email = email;

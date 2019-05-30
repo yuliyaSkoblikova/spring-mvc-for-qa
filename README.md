@@ -96,3 +96,8 @@ git clone --depth 1 -b <YYYY-MM-project> https://github.com/eugene-krivosheyev/s
 ### Practice Iteration 4
 - Разработка своего микро-сервисного приложения "с нуля" каждой командой
 - Интеграция микро-сервисов команд в единое приложение
+
+---
+
+# Reading
+- [Valuable Reading List](http://tinyurl.com/skilltrekreadinglist)
